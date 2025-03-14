@@ -29,14 +29,14 @@ jobs:
         run: |
           aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 637423621036.dkr.ecr.eu-west-1.amazonaws.com
 
-      - name: Build Docker Image
+      - name: Build Docker Image (Using adservice Dockerfile)
         run: |
           docker build -t sock-shop-adservice -f src/adservice/Dockerfile src/adservice/
 
       - name: Tag Docker Image
         run: |
-          docker tag sock-shop:latest 637423621036.dkr.ecr.eu-west-1.amazonaws.com/sock-shop:latest
+          docker tag sock-shop-adservice:latest 637423621036.dkr.ecr.eu-west-1.amazonaws.com/sock-shop-adservice:latest
 
       - name: Push Docker Image to ECR
         run: |
-          docker push 637423621036.dkr.ecr.eu-west-1.amazonaws.com/sock-shop:latest
+          docker push 637423621036.dkr.ecr.eu-west-1.amazonaws.com/sock-shop-adservice:latest
