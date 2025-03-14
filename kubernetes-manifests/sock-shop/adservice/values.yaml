@@ -1,0 +1,48 @@
+replicaCount: 2  # Varsayılan olarak 2 pod başlat
+
+image:
+  repository: 637423621036.dkr.ecr.eu-central-1.amazonaws.com/productcatalogservice
+  tag: "latest"
+  #pullPolicy: IfNotPresent  # Eğer image yoksa çek
+
+serviceAccount:
+  create: true
+  annotations: {}
+
+securityContext:
+  enabled: true
+
+service:
+  name: adservice
+  type: ClusterIP  # Dış erişime kapalı, sadece cluster içinden erişilebilir
+  port: 9555
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 128Mi
+  limits:
+    cpu: 400m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70  # CPU %70 üzerine çıkarsa ölçeklendir
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+ingress:
+  enabled: false  # dış dünyadan erişim kapalı
+  annotations: {}
+  hosts:
+    - host: adservice.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []

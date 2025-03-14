@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adservice-web-ui
+  namespace: default
+spec:
+  selector:
+    app: adservice-web-ui
+  ports:
+    - name: grpc
+      protocol: TCP
+      port: 9555     
+      targetPort: 9555 #port içinde uygulamanın dinlediği port
+  type: ClusterIP
