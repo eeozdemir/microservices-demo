@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t sock-shop .
+          docker build -t sock-shop-adservice -f src/adservice/Dockerfile src/adservice/
 
       - name: Tag Docker Image
         run: |
